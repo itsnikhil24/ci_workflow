@@ -9,36 +9,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
+      # 📦 Checkout
       - name: Checkout code
         uses: actions/checkout@v3
 
-     
+      # ======================
+      # 🐍 BACKEND
+      # ======================
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: "3.10"
 
-      - name: Create virtual environment & install deps
+      - name: Install backend dependencies
         run: |
           cd backend
           python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          ./venv/bin/pip install --upgrade pip
+          ./venv/bin/pip install -r requirements.txt
 
-      - name: Run backend tests (pytest)
+      - name: Run backend tests
         run: |
           cd backend
-          source venv/bin/activate
-          pytest -v
+          ./venv/bin/pytest -v
 
-  
+      # ======================
+      # 🌐 FRONTEND
+      # ======================
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install frontend dependencies
@@ -46,7 +48,7 @@ jobs:
           cd frontend
           npm ci
 
-      - name: Run frontend tests (vitest)
+      - name: Run frontend tests
         run: |
           cd frontend
           npx vitest run
