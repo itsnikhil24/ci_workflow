@@ -7,9 +7,7 @@ on:
 
 jobs:
 
-  # ======================
-  # 🐍 BACKEND JOB
-  # ======================
+
   backend-test:
     runs-on: ubuntu-latest
 
@@ -36,9 +34,7 @@ jobs:
         run: |
           ./venv/bin/pytest -v
 
-  # ======================
-  # 🌐 FRONTEND JOB
-  # ======================
+
   frontend-test:
     runs-on: ubuntu-latest
 
